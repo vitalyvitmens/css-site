@@ -6,6 +6,7 @@ const ProductSchema = mongoose.Schema(
 		title: {
 			type: String,
 			required: true,
+			unique: true,
 		},
 		image: {
 			type: String,
@@ -25,12 +26,16 @@ const ProductSchema = mongoose.Schema(
 			type: Number,
 			required: true,
 		},
-		comments: [
-			{
-				type: mongoose.Schema.Types.ObjectId,
-				ref: 'Comment',
-			},
-		],
+		views: {
+			type: Number,
+			default: 0,
+		},
+		// comments: [
+		// 	{
+		// 		type: mongoose.Schema.Types.ObjectId,
+		// 		ref: 'Comment',
+		// 	},
+		// ],
 	},
 	{ timestamps: true }
 )

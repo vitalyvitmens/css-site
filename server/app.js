@@ -12,7 +12,15 @@ const {
 	editUser,
 	deleteUser,
 } = require('./controllers/user')
+const {
+	addProduct,
+	editProduct,
+	deleteProduct,
+	getProducts,
+	getProduct,
+} = require('./controllers/product')
 const mapUser = require('./helpers/mapUser')
+const mapProduct = require('./helpers/mapProduct')
 const authenticated = require('./middlewares/authenticated')
 const hasRole = require('./middlewares/hasRole')
 const ROLES = require('./constants/roles')
@@ -56,7 +64,46 @@ app.post('/logout', (req, res) => {
 	res.cookie('token', '', { httpOnly: true }).send({})
 })
 
+app.get('/products', async (req, res) => {
+	try {
+		const { products, lastPage } = await getProducts(
+			req.query.search,
+			req.query.limit,
+			req.query.page
+		)
+
+		res.send({ data: { lastPage, products: products.map(mapProduct) } })
+	} catch (e) {
+		res.send({ error: e.message || 'Unknown getProducts error' })
+	}
+})
+
+app.get('/products/:id', async (req, res) => {
+	try {
+		const product = await getProduct(req.params.id)
+
+		res.send({ data: mapProduct(product) })
+	} catch (e) {
+		res.send({ error: e.message || 'Unknown getProduct error' })
+	}
+})
+
 app.use(authenticated)
+
+app.post(
+	'/products',
+	hasRole([ROLES.ADMIN, ROLES.MODERATOR]),
+	async (req, res) => {
+		const newProduct = await addProduct({
+			title: req.body.title,
+			image: req.body.image,
+			description: req.body.description,
+			price: req.body.price,
+		})
+
+		res.send({ data: newProduct })
+	}
+)
 
 app.get('/users', hasRole([ROLES.ADMIN]), async (req, res) => {
 	const users = await getUsers()
