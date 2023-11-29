@@ -90,10 +90,8 @@ app.get('/products/:id', async (req, res) => {
 
 app.use(authenticated)
 
-app.post(
-	'/products',
-	hasRole([ROLES.ADMIN, ROLES.MODERATOR]),
-	async (req, res) => {
+app.post('/products', hasRole([ROLES.ADMIN]), async (req, res) => {
+	try {
 		const newProduct = await addProduct({
 			title: req.body.title,
 			image: req.body.image,
@@ -101,9 +99,31 @@ app.post(
 			price: req.body.price,
 		})
 
-		res.send({ data: newProduct })
+		res.send({ data: mapProduct(newProduct) })
+	} catch (e) {
+		res.send({ error: e.message || 'Unknown addProduct error' })
 	}
-)
+})
+
+app.patch('/products/:id', hasRole([ROLES.ADMIN]), async (req, res) => {
+	try {
+		const newProduct = await editProduct(req.params.id, {
+			image: req.body.image,
+			description: req.body.description,
+			price: req.body.price,
+		})
+
+		res.send({ data: mapProduct(newProduct) })
+	} catch (e) {
+		res.send({ error: e.message || 'Unknown editProduct error' })
+	}
+})
+
+app.delete('/products/:id', hasRole([ROLES.ADMIN]), async (req, res) => {
+	await deleteProduct(req.params.id)
+
+	res.send({ error: null })
+})
 
 app.get('/users', hasRole([ROLES.ADMIN]), async (req, res) => {
 	const users = await getUsers()
@@ -123,7 +143,7 @@ app.get('/users/roles', hasRole([ROLES.ADMIN]), async (req, res) => {
 	res.send({ data: roles })
 })
 
-app.put('/users/:id', hasRole([ROLES.ADMIN]), async (req, res) => {
+app.patch('/users/:id', hasRole([ROLES.ADMIN]), async (req, res) => {
 	const newUser = await editUser(req.params.id, {
 		avatar: req.body.avatar,
 		role: req.body.role,

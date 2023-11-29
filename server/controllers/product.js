@@ -2,12 +2,6 @@ const Product = require('../models/Product')
 
 // add
 async function addProduct(product) {
-	await Product.findOne({ title: product.title })
-
-	if (product.title) {
-		return { error: 'productTitle duplicate' }
-	}
-
 	const newProduct = await Product.create(product)
 
 	// await newProduct.populate({
