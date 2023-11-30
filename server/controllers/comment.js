@@ -22,7 +22,9 @@ async function editComment(productId, commentId, comment) {
 
 	await newComment.populate('author')
 
-	await Product.findByIdAndUpdate(productId, { $push: { comments: newComment } })
+	await Product.findByIdAndUpdate(productId, comment, {
+		returnDocument: 'after',
+	})
 
 	return newComment
 }
