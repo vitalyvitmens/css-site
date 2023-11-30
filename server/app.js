@@ -24,6 +24,8 @@ const mapProduct = require('./helpers/mapProduct')
 const authenticated = require('./middlewares/authenticated')
 const hasRole = require('./middlewares/hasRole')
 const ROLES = require('./constants/roles')
+const { addComment, deleteComment } = require('./controllers/comment')
+const mapComment = require('./helpers/mapComment')
 
 const PORT = process.env.PORT || 3001
 const app = express()
@@ -89,6 +91,25 @@ app.get('/products/:id', async (req, res) => {
 })
 
 app.use(authenticated)
+
+app.post('/products/:id/comments', async (req, res) => {
+	const newComment = await addComment(req.params.id, {
+		content: req.body.content,
+		author: req.user.id,
+	})
+
+	res.send({ data: mapComment(newComment) })
+})
+
+app.delete(
+	'/products/:productId/comments/:commentId',
+	hasRole([ROLES.ADMIN, ROLES.MODERATOR]),
+	async (req, res) => {
+		await deleteComment(req.params.productId, req.params.commentId)
+
+		res.send({ error: null })
+	}
+)
 
 app.post('/products', hasRole([ROLES.ADMIN]), async (req, res) => {
 	try {

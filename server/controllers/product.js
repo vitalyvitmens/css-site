@@ -4,10 +4,10 @@ const Product = require('../models/Product')
 async function addProduct(product) {
 	const newProduct = await Product.create(product)
 
-	// await newProduct.populate({
-	// 	path: 'comments',
-	// 	populate: 'author',
-	// })
+	await newProduct.populate({
+		path: 'comments',
+		populate: 'author',
+	})
 
 	return newProduct
 }
@@ -16,6 +16,11 @@ async function addProduct(product) {
 async function editProduct(id, product) {
 	const newProduct = await Product.findByIdAndUpdate(id, product, {
 		returnDocument: 'after',
+	})
+
+	await newProduct.populate({
+		path: 'comments',
+		populate: 'author',
 	})
 
 	return newProduct
@@ -45,7 +50,10 @@ async function getProducts(search = '', limit = 10, page = 1) {
 
 // get item
 async function getProduct(id) {
-	const product = await Product.findById(id)
+	const product = await Product.findById(id).populate({
+		path: 'comments',
+		populate: 'author',
+	})
 
 	product.views = product.views + 1
 	await product.save()
