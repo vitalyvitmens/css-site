@@ -24,7 +24,11 @@ const mapProduct = require('./helpers/mapProduct')
 const authenticated = require('./middlewares/authenticated')
 const hasRole = require('./middlewares/hasRole')
 const ROLES = require('./constants/roles')
-const { addComment, deleteComment } = require('./controllers/comment')
+const {
+	addComment,
+	deleteComment,
+	editComment,
+} = require('./controllers/comment')
 const mapComment = require('./helpers/mapComment')
 
 const PORT = process.env.PORT || 3001
@@ -99,6 +103,23 @@ app.post('/products/:id/comments', async (req, res) => {
 	})
 
 	res.send({ data: mapComment(newComment) })
+})
+
+app.patch('/products/:productId/comments/:commentId', async (req, res) => {
+	try {
+		const newComment = await editComment(
+			req.params.productId,
+			req.params.commentId,
+			{
+				content: req.body.content,
+        author: req.user.id,
+			}
+		)
+
+		res.send({ data: mapComment(newComment) })
+	} catch (e) {
+		res.send({ error: e.message || 'Unknown editComment error' })
+	}
 })
 
 app.delete(
