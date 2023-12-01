@@ -162,7 +162,8 @@ app.post('/products', hasRole([ROLES.ADMIN]), async (req, res) => {
 app.patch('/products/:id', hasRole([ROLES.ADMIN]), async (req, res) => {
 	try {
 		const newProduct = await editProduct(req.params.id, {
-			image: req.body.image,
+			title: req.body.title,
+      image: req.body.image,
 			description: req.body.description,
 			price: req.body.price,
 		})
