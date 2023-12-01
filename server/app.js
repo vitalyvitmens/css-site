@@ -67,7 +67,11 @@ app.post('/login', async (req, res) => {
 })
 
 app.post('/logout', (req, res) => {
-	res.cookie('token', '', { httpOnly: true }).send({})
+	try {
+		res.cookie('token', '', { httpOnly: true }).send({})
+	} catch (e) {
+		res.send({ error: e.message || 'Unknown logout error' })
+	}
 })
 
 app.get('/products', async (req, res) => {
@@ -97,12 +101,16 @@ app.get('/products/:id', async (req, res) => {
 app.use(authenticated)
 
 app.post('/products/:id/comments', async (req, res) => {
-	const newComment = await addComment(req.params.id, {
-		content: req.body.content,
-		author: req.user.id,
-	})
+	try {
+		const newComment = await addComment(req.params.id, {
+			content: req.body.content,
+			author: req.user.id,
+		})
 
-	res.send({ data: mapComment(newComment) })
+		res.send({ data: mapComment(newComment) })
+	} catch (e) {
+		res.send({ error: e.message || 'Unknown addComment error' })
+	}
 })
 
 app.patch('/products/:productId/comments/:commentId', async (req, res) => {
@@ -112,7 +120,7 @@ app.patch('/products/:productId/comments/:commentId', async (req, res) => {
 			req.params.commentId,
 			{
 				content: req.body.content,
-        author: req.user.id,
+				author: req.user.id,
 			}
 		)
 
@@ -126,9 +134,13 @@ app.delete(
 	'/products/:productId/comments/:commentId',
 	hasRole([ROLES.ADMIN, ROLES.MODERATOR]),
 	async (req, res) => {
-		await deleteComment(req.params.productId, req.params.commentId)
+		try {
+			await deleteComment(req.params.productId, req.params.commentId)
 
-		res.send({ error: null })
+			res.send({ error: null })
+		} catch (e) {
+			res.send({ error: e.message || 'Unknown deleteComment error' })
+		}
 	}
 )
 
@@ -162,42 +174,66 @@ app.patch('/products/:id', hasRole([ROLES.ADMIN]), async (req, res) => {
 })
 
 app.delete('/products/:id', hasRole([ROLES.ADMIN]), async (req, res) => {
-	await deleteProduct(req.params.id)
+	try {
+		await deleteProduct(req.params.id)
 
-	res.send({ error: null })
+		res.send({ error: null })
+	} catch (e) {
+		res.send({ error: e.message || 'Unknown deleteProduct error' })
+	}
 })
 
 app.get('/users', hasRole([ROLES.ADMIN]), async (req, res) => {
-	const users = await getUsers()
+	try {
+		const users = await getUsers()
 
-	res.send({ data: users.map(mapUser) })
+		res.send({ data: users.map(mapUser) })
+	} catch (e) {
+		res.send({ error: e.message || 'Unknown getUsers error' })
+	}
 })
 
 app.get('/users/:id', hasRole([ROLES.ADMIN]), async (req, res) => {
-	const user = await getUser(req.params.id)
+	try {
+		const user = await getUser(req.params.id)
 
-	res.send({ data: mapUser(user) })
+		res.send({ data: mapUser(user) })
+	} catch (e) {
+		res.send({ error: e.message || 'Unknown getUser error' })
+	}
 })
 
 app.get('/users/roles', hasRole([ROLES.ADMIN]), async (req, res) => {
-	const roles = getRoles()
+	try {
+		const roles = getRoles()
 
-	res.send({ data: roles })
+		res.send({ data: roles })
+	} catch (e) {
+		res.send({ error: e.message || 'Unknown getRoles error' })
+	}
 })
 
 app.patch('/users/:id', hasRole([ROLES.ADMIN]), async (req, res) => {
-	const newUser = await editUser(req.params.id, {
-		avatar: req.body.avatar,
-		role: req.body.role,
-	})
+	try {
+		const newUser = await editUser(req.params.id, {
+			avatar: req.body.avatar,
+			role: req.body.role,
+		})
 
-	res.send({ data: mapUser(newUser) })
+		res.send({ data: mapUser(newUser) })
+	} catch (e) {
+		res.send({ error: e.message || 'Unknown editUser error' })
+	}
 })
 
 app.delete('/users/:id', hasRole([ROLES.ADMIN]), async (req, res) => {
-	await deleteUser(req.params.id)
+	try {
+		await deleteUser(req.params.id)
 
-	res.send({ error: null })
+		res.send({ error: null })
+	} catch (e) {
+		res.send({ error: e.message || 'Unknown deleteUser error' })
+	}
 })
 
 mongoose.connect(process.env.DB_CONNECTION_STRING).then(() => {
