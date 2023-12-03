@@ -1,24 +1,29 @@
-import { useLayoutEffect } from 'react'
+import { useLayoutEffect, useState } from 'react'
+import { Loader } from './components'
 
 export const App = () => {
+	const [products, setProducts] = useState()
+
 	useLayoutEffect(() => {
 		fetch('products')
 			.then((res) => res.json())
-			.then(console.log)
+			.then((res) => setProducts(res.data.products))
 	}, [])
 
-	return (
-		<div className="text-center">
-			<div className="text-blue-600 text-7xl mt-10">Контент</div>
-			<div className="circle-red">77</div>
-			<i className="fa fa-address-book"></i>
-			<i className="fa fa-address-book fa-lg"></i>
-			<i className="fa fa-address-book fa-2x"></i>
-			<i className="fa fa-address-book fa-3x"></i>
-			<i className="fa fa-address-book fa-4x"></i>
-			<i className="fa fa-address-book fa-5x"></i>
-			<i className="fa fa-refresh fa-spin fa-fw fa-5x text-blue-800"></i>
-			<i className="fa fa-address-book fa-5x text-red-600"></i>
-		</div>
+	return !products ? (
+		<Loader />
+	) : (
+		products.map(({ id, title, image, description, price }) => (
+			<ul key={id}>
+				<li className="flex flex-col mb-10 m-auto text-center">
+					<div className="text-blue-800 font-semibold text-2xl py-2">
+						{title}
+					</div>
+					<img className="rounded-[10px] shadow-[-5px_7px_10px_#000] w-[400px] m-auto" src={image} alt={image} />
+					<div className='text-green-800 text-xl'>{description}</div>
+					<div className="text-red-500 font-bold text-center">{price} руб</div>
+				</li>
+			</ul>
+		))
 	)
 }
