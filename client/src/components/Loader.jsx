@@ -1,6 +1,6 @@
 export const Loader = () => {
 	return (
-		<div className="mt-10 text-center text-blue-800">
+		<div className="mt-60 text-center text-blue-800">
 			<div>
 				<i className="fa fa-refresh fa-spin fa-5x" />
 			</div>
