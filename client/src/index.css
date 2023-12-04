@@ -27,7 +27,9 @@ body {
 		sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	background-color: bisque;
+	background-image: url('./img/space.jpg');
+	background-size: cover;
+	background-attachment: fixed;
 }
 
 code {
