@@ -3,7 +3,7 @@ import { Link, NavLink, useNavigate } from 'react-router-dom'
 
 export const Navbar = () => {
 	const navigate = useNavigate()
-	const firstName = 'vitalyvitmens'
+	const firstName = 'куличиха'
 
 	const activeStyles = {
 		color: '#C80815',
@@ -26,7 +26,7 @@ export const Navbar = () => {
 					</li>
 					<li>
 						<NavLink
-							to="/walkthroughs"
+							to="/calc"
 							className="text-xl text-blue-900 hover:text-blue-600"
 							style={({ isActive }) => (isActive ? activeStyles : undefined)}
 						>
@@ -35,7 +35,7 @@ export const Navbar = () => {
 					</li>
 					<li>
 						<NavLink
-							to="/quiz"
+							to="/gallery"
 							className="text-xl text-blue-900 hover:text-blue-600"
 							style={({ isActive }) => (isActive ? activeStyles : undefined)}
 						>
@@ -44,7 +44,7 @@ export const Navbar = () => {
 					</li>
 					<li>
 						<NavLink
-							to="/edit"
+							to="/us"
 							className="text-xl text-blue-900 hover:text-blue-600"
 							style={({ isActive }) => (isActive ? activeStyles : undefined)}
 						>
@@ -76,19 +76,22 @@ export const Navbar = () => {
 			)}
 			<div className="flex text-xl">
 				<i
-					className="fa fa-backward fa-2x pt-2 pr-2 pl-2 text-green-800 hover:cursor-pointer hover:opacity-70"
+					className="fa fa-arrow-left pt-6 pr-2 pl-2 text-green-800 hover:cursor-pointer hover:opacity-70"
 					onClick={() => navigate(-1)}
 				></i>
 				{firstName ? (
-					<div className="flex items-center">
+					<div className="flex flex-row">
 						<div className="flex flex-col items-center px-2">
 							<i
 								className="fa fa-user-circle-o fa-2x text-blue-900 hover:cursor-pointer hover:text-blue-600"
 								onClick={() => navigate('/profile')}
 							></i>
-							<h1 className=" text-blue-900 mr-2 text-base">{firstName}</h1>
+							<h1 className=" text-blue-900 px-2 text-base">{firstName}</h1>
 						</div>
-						<button className="text-[#C80815]" onClick={false}>
+						<button
+							className="text-[#C80815]"
+							onClick={() => alert(`${firstName} хочет выйти?`)}
+						>
 							Выйти
 						</button>
 					</div>
