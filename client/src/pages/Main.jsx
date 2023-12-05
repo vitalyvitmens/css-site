@@ -11,11 +11,11 @@ export const Main = () => {
 	}, [])
 
 	return !products ? (
-		<div className="flex flex-col m-auto pt-4 w-[80%] min-h-screen bg-[antiquewhite]  shadow-[0_0_15px_black]">
+		<div className="flex flex-col m-auto pt-4 w-[80%] min-h-screen bg-[antiquewhite] shadow-[0_0_15px_black]">
 			<Loader />
 		</div>
 	) : (
-		<div className="flex flex-col m-auto mt-20 pt-8 w-[80%]  min-h-screen bg-[antiquewhite]  shadow-[0_0_15px_black]">
+		<div className="flex flex-col m-auto mt-20 pt-8 w-[80%] min-h-screen bg-[antiquewhite] shadow-[0_0_15px_black]">
 			<div className="flex justify-center mb-4 text-blue-900 font-semibold text-2xl">
 				Продукция ООО "ЦЕНТРОСТАЛЬСТРОЙ"
 			</div>

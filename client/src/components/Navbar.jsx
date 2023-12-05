@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
+import { Button } from './Button'
 
 export const Navbar = () => {
 	const navigate = useNavigate()
@@ -88,17 +89,14 @@ export const Navbar = () => {
 							></i>
 							<h1 className=" text-blue-900 px-2 text-base">{firstName}</h1>
 						</div>
-						<button
-							className="text-[#C80815]"
-							onClick={() => alert(`${firstName} хочет выйти?`)}
-						>
+						<Button onClick={() => alert(`${firstName} хочет выйти?`)}>
 							Выйти
-						</button>
+						</Button>
 					</div>
 				) : (
-					<button bgColor="bg-green-800">
+					<Button bgColor="bg-green-800">
 						<Link to="/login">Войти</Link>
-					</button>
+					</Button>
 				)}
 			</div>
 		</div>
