@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { Button } from './Button'
+import { Icon } from './Icon'
 
 export const Navbar = () => {
 	const navigate = useNavigate()
@@ -76,17 +77,19 @@ export const Navbar = () => {
 				</ul>
 			)}
 			<div className="flex text-xl">
-				<i
-					className="fa fa-arrow-left pt-6 pr-2 pl-2 text-green-800 hover:cursor-pointer hover:opacity-70"
+				<Icon
+					id="fa-arrow-left pt-6 px-2"
+					color="text-green-800"
 					onClick={() => navigate(-1)}
-				></i>
+				/>
 				{firstName ? (
 					<div className="flex flex-row">
 						<div className="flex flex-col items-center px-2">
-							<i
-								className="fa fa-user-circle-o fa-2x text-blue-900 hover:cursor-pointer hover:text-blue-600"
+							<Icon
+								id="fa-user-circle-o"
+								size="fa-2x"
 								onClick={() => navigate('/profile')}
-							></i>
+							/>
 							<h1 className=" text-blue-900 px-2 text-base">{firstName}</h1>
 						</div>
 						<Button onClick={() => alert(`${firstName} хочет выйти?`)}>
