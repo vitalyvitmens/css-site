@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
-import { Header } from './components'
+import { Footer, Header } from './components'
 import { Main, Gallery, Calc, Us } from './pages'
 
 export const App = () => {
@@ -19,6 +19,7 @@ export const App = () => {
 				{/* <Route path="/post/:id/edit" element={<Post />} /> */}
 				{/* <Route path="*" element={<Error error={ERROR.PAGE_NOT_EXIST} />} /> */}
 			</Routes>
+			<Footer />
 		</>
 	)
 }
