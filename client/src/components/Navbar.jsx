@@ -13,7 +13,10 @@ export const Navbar = () => {
 
 	return (
 		<div className="flex justify-around items-center w-full">
-			<div className="bg-cover bg-logo h-[90px] w-[130px]"></div>
+			<div
+				className="bg-cover bg-logo h-[90px] w-[130px] hover:cursor-pointer hover:opacity-80"
+				onClick={() => navigate('/')}
+			></div>
 
 			{firstName ? (
 				<ul className="flex gap-8">
