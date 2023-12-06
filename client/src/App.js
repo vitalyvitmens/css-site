@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 import { Footer, Header } from './components'
-import { Main, Gallery, Calc, Us } from './pages'
+import { Main, Gallery, Calc, Us, Relax } from './pages'
 
 export const App = () => {
 	return (
@@ -15,6 +15,7 @@ export const App = () => {
 				<Route path="/calc" element={<Calc />} />
 				<Route path="/gallery" element={<Gallery />} />
 				<Route path="/us" element={<Us />} />
+				<Route path="/relax" element={<Relax />} />
 				{/* <Route path="/post/:id" element={<Post />} /> */}
 				{/* <Route path="/post/:id/edit" element={<Post />} /> */}
 				{/* <Route path="*" element={<Error error={ERROR.PAGE_NOT_EXIST} />} /> */}

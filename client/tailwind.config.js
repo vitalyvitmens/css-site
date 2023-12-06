@@ -5,6 +5,7 @@ export const theme = {
 		backgroundImage: {
 			dribbble: "url('/public/gif/dribbble.gif')",
 			logo: "url('/public/png/logo.png')",
+			relax: "url('/public/png/relax.png')",
 		},
 	},
 }
