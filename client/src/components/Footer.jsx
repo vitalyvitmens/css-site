@@ -36,7 +36,9 @@ export const Footer = () => {
 			<div
 				className="bg-cover bg-relax h-[63px] w-[125px] rounded-lg shadow-[-2px_5px_5px_black] hover:cursor-pointer hover:opacity-80 active:shadow-none"
 				onClick={() => navigate('/relax')}
-			></div>
+			>
+				{' '}
+			</div>
 			<div>
 				<div>
 					{city}{' '}

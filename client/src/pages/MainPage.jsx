@@ -1,7 +1,7 @@
 import { useLayoutEffect, useState } from 'react'
 import { Loader } from '../components'
 
-export const Main = () => {
+export const MainPage = () => {
 	const [products, setProducts] = useState()
 
 	useLayoutEffect(() => {

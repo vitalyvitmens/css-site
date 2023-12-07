@@ -103,7 +103,7 @@ const regFormSchema = yup.object().shape({
 // 	font-size: 18px;
 // `
 
-export const Registration = ({ className }) => {
+export const RegistrationPage = ({ className }) => {
 	const {
 		register,
 		reset,

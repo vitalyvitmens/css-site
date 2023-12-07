@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export const Relax = () => {
+export const RelaxPage = () => {
 	const [isVisible, setIsVisible] = useState(true)
 
 	setTimeout(() => {
