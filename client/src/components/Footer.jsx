@@ -20,7 +20,7 @@ export const Footer = () => {
 	}, [])
 
 	return (
-		<div className="flex flex-row items-center justify-between bottom-0 ml-[10%] w-[80%] -mt-2 h-24 py-5 px-10 text-sm tracking-[.015em] text-[#211f20] font-bold font-['Georgia_serif'] bg-[bisque] rounded-t-lg shadow-[0_-7px_10px_#333] z-10">
+		<div className="flex flex-row items-center justify-between bottom-0 h-24 py-2 px-5 text-sm tracking-[.015em] text-[#211f20] font-bold font-['Georgia_serif'] bg-[bisque] rounded-t-lg shadow-[0_-7px_10px_#333] z-10">
 			<div>
 				<div>ООО "ЦЕНТРОСТАЛЬСТРОЙ"</div>
 				<div className="hover:opacity-80">

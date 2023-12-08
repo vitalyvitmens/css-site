@@ -12,24 +12,6 @@ import { selectUserRole } from '../../redux/selectors'
 import { ROLE } from '../constants'
 
 const regFormSchema = yup.object().shape({
-	firstName: yup
-		.string()
-		.required('Укажите своё имя')
-		.min(2, 'Неверно указано имя. Минимум 2 символа')
-		.max(15, 'Неверно указано имя. Максимум 15 символов')
-		.matches(
-			/^([А-Я]{1}[а-яё]{1,23}|[A-Z]{1}[a-z]{1,23})$/,
-			'Неверно указано имя. Допускаются только буквы из них первая должна быть заглавной'
-		),
-	lastName: yup
-		.string()
-		.required('Укажите свою фамилию')
-		.min(2, 'Неверно указана фамилия. Минимум 2 символа')
-		.max(15, 'Неверно указана фамилия. Максимум 15 символов')
-		.matches(
-			/^([А-Я]{1}[а-яё]{1,23}|[A-Z]{1}[a-z]{1,23})$/,
-			'Неверно указана фамилия. Допускаются только буквы из них первая должна быть заглавной'
-		),
 	email: yup
 		.string()
 		.required('Заполните email')
@@ -38,24 +20,6 @@ const regFormSchema = yup.object().shape({
 		.matches(
 			/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
 			'Неверно заполнен email'
-		),
-	location: yup
-		.string()
-		.required('Укажите населенный пункт в котором проживаете')
-		.min(2, 'Неверно указан населенный пункт. Минимум 2 символа')
-		.max(30, 'Неверно указан населенный пункт. Максимум 30 символов')
-		.matches(
-			/^(([a-zA-Zа-яА-ЯёЁ]*(\s*)\([a-zA-Zа-яА-ЯёЁ\s]*\))|([a-zA-Zа-яА-ЯёЁ\-0-9]*)|([a-zA-Zа-яА-ЯёЁ]+[\\-|\s]?[a-zA-Zа-яА-ЯёЁ]*[\\-|\s]?[a-zA-Zа-яА-ЯёЁ]*[\\-|\s]?[a-zA-Zа-яА-ЯёЁ]*))$/,
-			'Неверно указан населенный пункт. Допускаются буквы, цифры, без пробелов и символов, за исключением тире'
-		),
-	speciality: yup
-		.string()
-		.required('Укажите свою профессию')
-		.min(2, 'Неверно указана профессия. Минимум 2 символа')
-		.max(30, 'Неверно указана профессия. Максимум 30 символов')
-		.matches(
-			/^(([a-zA-Zа-яА-ЯёЁ]*(\s*)\([a-zA-Zа-яА-ЯёЁ\s]*\))|([a-zA-Zа-яА-ЯёЁ\-0-9]*)|([a-zA-Zа-яА-ЯёЁ]+[\\-|\s]?[a-zA-Zа-яА-ЯёЁ]*[\\-|\s]?[a-zA-Zа-яА-ЯёЁ]*[\\-|\s]?[a-zA-Zа-яА-ЯёЁ]*))$/,
-			'Неверно указана профессия. Допускаются только буквы, цифры, одиночные тире, пробел или нижнее подчеркивание'
 		),
 	avatar: yup
 		.string()
@@ -111,11 +75,7 @@ export const RegistrationPage = ({ className }) => {
 		formState: { errors },
 	} = useForm({
 		defaultValues: {
-			firstName: '',
-			lastName: '',
 			email: '',
-			location: '',
-			speciality: '',
 			avatar: '',
 			login: '',
 			password: '',
@@ -133,21 +93,13 @@ export const RegistrationPage = ({ className }) => {
 	// useResetForm(reset)
 
 	const onSubmit = ({
-		firstName,
-		lastName,
 		email,
-		location,
-		speciality,
 		avatar,
 		login,
 		password,
 	}) => {
 		request('/register', 'POST', {
-			firstName,
-			lastName,
 			email,
-			location,
-			speciality,
 			avatar,
 			login,
 			password,
@@ -163,11 +115,7 @@ export const RegistrationPage = ({ className }) => {
 	}
 
 	const formError =
-		errors?.firstName?.message ||
-		errors?.lastName?.message ||
 		errors?.email?.message ||
-		errors?.location?.message ||
-		errors?.speciality?.message ||
 		errors?.avatar?.message ||
 		errors?.login?.message ||
 		errors?.password?.message ||
@@ -183,37 +131,9 @@ export const RegistrationPage = ({ className }) => {
 			<H2>Регистрация</H2>
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<Input
-					type="text"
-					placeholder="Имя..."
-					{...register('firstName', {
-						onChange: () => setServerError(null),
-					})}
-				/>
-				<Input
-					type="text"
-					placeholder="Фамилия..."
-					{...register('lastName', {
-						onChange: () => setServerError(null),
-					})}
-				/>
-				<Input
 					type="email"
 					placeholder="Электронная почта..."
 					{...register('email', {
-						onChange: () => setServerError(null),
-					})}
-				/>
-				<Input
-					type="text"
-					placeholder="Ваш город..."
-					{...register('location', {
-						onChange: () => setServerError(null),
-					})}
-				/>
-				<Input
-					type="text"
-					placeholder="Профессия..."
-					{...register('speciality', {
 						onChange: () => setServerError(null),
 					})}
 				/>

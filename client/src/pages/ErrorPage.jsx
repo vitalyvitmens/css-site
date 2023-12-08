@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom'
 
 export const ErrorPage = ({ error }) => {
 	return (
-		<div className="flex flex-col m-auto w-[80%] min-h-screen bg-[antiquewhite] shadow-[0_0_15px_black]">
-			<div className="flex flex-col mt-40 items-center bg-dribbble h-full w-full bg-cover bg-center">
+		<div className="flex m-auto w-full pt-28 min-h-screen">
+			<div className="flex flex-col my-auto items-center bg-dribbble w-full bg-cover bg-center">
 				<h2 className="my-5 text-2xl text-red-500 font-['Playfair_Display']">
 					{error}
 				</h2>
