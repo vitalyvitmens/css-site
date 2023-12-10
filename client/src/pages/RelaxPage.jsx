@@ -10,7 +10,7 @@ export const RelaxPage = () => {
 	return isVisible ? (
 		<div
 			className={
-				'm-auto pt-20 text-center text-5xl text-blue-900 font-semibold'
+				'm-auto pt-28 text-center text-5xl text-blue-900 font-semibold'
 			}
 		>
 			Перед лицом Космоса большинство людских дел выглядят незначительными, даже

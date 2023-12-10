@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 
 export const ErrorPage = ({ error }) => {
 	return (
-		<div className="flex m-auto w-full pt-20">
+		<div className="flex m-auto w-full pt-24">
 			<div className="flex flex-col my-auto items-center bg-dribbble w-full bg-cover bg-center">
 				<h2 className="my-5 text-2xl text-red-500 font-['Playfair_Display']">
 					{error}

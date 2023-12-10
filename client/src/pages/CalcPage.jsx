@@ -2,7 +2,7 @@ import { Button } from '../components'
 
 export const CalcPage = () => {
 	return (
-		<div className="m-auto pt-20">
+		<div className="m-auto pt-28">
 			<div className="mx-auto">
 				<form className="flex flex-col gap-2">
 					<div className="flex flex-row gap-2 mx-auto">
