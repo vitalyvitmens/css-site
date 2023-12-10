@@ -28,7 +28,7 @@ body,
 		sans-serif, 'Dancing Script', cursive;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	background-image: url('./img/space.jpg');
+	background-image: url('./assets/jpg/space.jpg');
 	background-size: cover;
 	background-attachment: fixed;
 }
