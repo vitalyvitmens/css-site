@@ -7,8 +7,10 @@ import {
 	RelaxPage,
 	CalcPage,
 	ErrorPage,
+	AuthorizationPage,
 } from './pages'
 import { ERROR } from './constants'
+import { RegistrationPage } from './pages/RegistrationPage'
 
 export const App = () => {
 	return (
@@ -16,8 +18,8 @@ export const App = () => {
 			<Header />
 			<Routes>
 				<Route path="/" element={<MainPage />} />
-				{/* <Route path="/authorization" element={<Authorization />} /> */}
-				{/* <Route path="/register" element={<Registration />} /> */}
+				<Route path="/login" element={<AuthorizationPage />} />
+				<Route path="/register" element={<RegistrationPage />} />
 				{/* <Route path="/users" element={<Users />} /> */}
 				{/* <Route path="/profile" element={<ProfilePage />} /> */}
 				<Route path="/calc" element={<CalcPage />} />

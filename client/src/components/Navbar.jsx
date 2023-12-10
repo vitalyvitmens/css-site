@@ -13,10 +13,10 @@ export const Navbar = () => {
 
 	return (
 		<div className="flex justify-between items-center px-5 w-full">
-			<div
+			<Link
 				className="bg-cover bg-logo h-[90px] w-[130px] hover:cursor-pointer hover:opacity-80"
-				onClick={() => navigate('/')}
-			></div>
+				to="/"
+			/>
 
 			{firstName ? (
 				<ul className="flex gap-8">
@@ -81,7 +81,7 @@ export const Navbar = () => {
 			)}
 			<div className="flex text-xl">
 				<Icon
-					id="fa-arrow-left pt-6 px-2"
+					id="fa-arrow-left pt-7 px-2"
 					color="text-green-800"
 					onClick={() => navigate(-1)}
 				/>
@@ -90,7 +90,7 @@ export const Navbar = () => {
 						<div className="flex flex-col items-center px-2">
 							<Icon
 								id="fa-user-circle-o"
-								size="fa-2x"
+								size="fa-2x pt-2"
 								onClick={() => navigate('/profile')}
 							/>
 							<h1 className=" text-blue-900 px-2 text-base">{firstName}</h1>

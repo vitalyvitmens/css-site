@@ -4,11 +4,11 @@ import { Link, Navigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { AuthFormError, Button, H2, Input } from '../../components'
+import { AuthFormError, Button, Input } from '../components'
 // import { useResetForm } from '../../hooks'
-import { request } from '../../utils/request'
-import { setUser } from '../../redux/actions'
-import { selectUserRole } from '../../redux/selectors'
+import { request } from '../utils'
+// import { setUser } from '../../redux/actions'
+// import { selectUserRole } from '../../redux/selectors'
 import { ROLE } from '../constants'
 
 const regFormSchema = yup.object().shape({
@@ -60,14 +60,7 @@ const regFormSchema = yup.object().shape({
 		.oneOf([yup.ref('password'), null], 'Повтор пароля не совпадает'),
 })
 
-// const StyledLink = styled(Link)`
-// 	text-align: center;
-// 	text-decoration: underline;
-// 	margin: 20px 0;
-// 	font-size: 18px;
-// `
-
-export const RegistrationPage = ({ className }) => {
+export const RegistrationPage = () => {
 	const {
 		register,
 		reset,
@@ -86,18 +79,13 @@ export const RegistrationPage = ({ className }) => {
 
 	const [serverError, setServerError] = useState(null)
 
-	const dispatch = useDispatch()
+	// const dispatch = useDispatch()
 
-	const roleId = useSelector(selectUserRole)
+	// const roleId = useSelector(selectUserRole)
 
 	// useResetForm(reset)
 
-	const onSubmit = ({
-		email,
-		avatar,
-		login,
-		password,
-	}) => {
+	const onSubmit = ({ email, avatar, login, password }) => {
 		request('/register', 'POST', {
 			email,
 			avatar,
@@ -109,7 +97,7 @@ export const RegistrationPage = ({ className }) => {
 				return
 			}
 
-			dispatch(setUser(user))
+			// dispatch(setUser(user))
 			sessionStorage.setItem('userData', JSON.stringify(user))
 		})
 	}
@@ -122,14 +110,17 @@ export const RegistrationPage = ({ className }) => {
 		errors?.passcheck?.message
 	const errorMessage = formError || serverError
 
-	if (roleId !== ROLE.GUEST) {
-		return <Navigate to="/main" />
-	}
+	// if (roleId !== ROLE.GUEST) {
+	// 	return <Navigate to="/main" />
+	// }
 
 	return (
-		<div className={className}>
-			<H2>Регистрация</H2>
-			<form onSubmit={handleSubmit(onSubmit)}>
+		<div className="flex flex-col items-center m-auto pt-28  text-xl">
+			<h2>Регистрация</h2>
+			<form
+				className="flex flex-col w-[400px]"
+				onSubmit={handleSubmit(onSubmit)}
+			>
 				<Input
 					type="email"
 					placeholder="Электронная почта..."
@@ -165,22 +156,17 @@ export const RegistrationPage = ({ className }) => {
 						onChange: () => setServerError(null),
 					})}
 				/>
-				<Button type="submit" disabled={!!formError}>
+				<Button type="submit" disabled={!!formError} fontSize="text-xl">
 					Зарегистрироваться
 				</Button>
 				{errorMessage && <AuthFormError>{errorMessage}</AuthFormError>}
-				<Link to="/">Авторизация</Link>
+				<Link
+					className="text-center underline my-5 mx-0 hover:opacity-80"
+					to="/"
+				>
+					Авторизация
+				</Link>
 			</form>
 		</div>
 	)
 }
-
-	// display: flex;
-	// flex-direction: column;
-	// align-items: center;
-
-	// & > form {
-	// 	display: flex;
-	// 	flex-direction: column;
-	// 	width: 400px;
-	// }
