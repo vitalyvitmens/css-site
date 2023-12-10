@@ -6,6 +6,7 @@ export const theme = {
 			dribbble: "url('/public/gif/dribbble.gif')",
 			logo: "url('/public/png/logo.png')",
 			relax: "url('/public/png/relax.png')",
+			space: "url('/public/jpg/space.jpg')",
 		},
 	},
 }

@@ -12,7 +12,7 @@ import { ERROR } from './constants'
 
 export const App = () => {
 	return (
-		<div className="flex flex-col justify-between mx-auto w-[80%] min-h-screen bg-[antiquewhite] shadow-[0_0_15px_black]">
+		<div className="flex flex-col justify-between mx-auto w-[80%] h-full min-h-screen bg-[antiquewhite] shadow-[0_0_15px_black]">
 			<Header />
 			<Routes>
 				<Route path="/" element={<MainPage />} />
