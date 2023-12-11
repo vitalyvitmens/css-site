@@ -6,7 +6,7 @@ export const Button = ({
 	color = 'text-[antiquewhite]',
 	bgColor = 'bg-red-600',
 	fontSize = 'text-base',
-	margin = 'mt-4',
+	margin = 'mt-5',
 }) => {
 	return (
 		<button

@@ -5,10 +5,9 @@ import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { AuthFormError, Button, H2, Input } from '../components'
-// import { useResetForm } from '../../hooks'
+import { useResetForm } from '../hooks'
 import { request } from '../utils'
-// import { setUser } from '../../redux/actions'
-// import { selectUserRole } from '../../redux/selectors'
+import { setUser } from '../redux/actions'
 import { ROLE } from '../constants'
 
 const regFormSchema = yup.object().shape({
@@ -79,11 +78,11 @@ export const RegistrationPage = () => {
 
 	const [serverError, setServerError] = useState(null)
 
-	// const dispatch = useDispatch()
+	const dispatch = useDispatch()
 
-	// const roleId = useSelector(selectUserRole)
+	const authUser = useSelector(({ user }) => user)
 
-	// useResetForm(reset)
+	useResetForm(reset)
 
 	const onSubmit = ({ email, avatar, login, password }) => {
 		request('/register', 'POST', {
@@ -97,7 +96,7 @@ export const RegistrationPage = () => {
 				return
 			}
 
-			// dispatch(setUser(user))
+			dispatch(setUser(user))
 			sessionStorage.setItem('userData', JSON.stringify(user))
 		})
 	}
@@ -110,9 +109,9 @@ export const RegistrationPage = () => {
 		errors?.passcheck?.message
 	const errorMessage = formError || serverError
 
-	// if (roleId !== ROLE.GUEST) {
-	// 	return <Navigate to="/main" />
-	// }
+	if (authUser.role !== ROLE.GUEST) {
+		return <Navigate to="/" />
+	}
 
 	return (
 		<div className="flex flex-col justify-center mx-auto items-center w-[400px] pt-28 text-xl">

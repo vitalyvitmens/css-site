@@ -1,14 +1,13 @@
 import { useState } from 'react'
-// import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link, Navigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { AuthFormError, Button, H2, Input } from '../components'
 import { useResetForm } from '../hooks'
-// import { setUser } from '../../redux/actions'
-// import { selectUserRole } from '../../redux/selectors'
-// import { ROLE } from '../constants'
+import { setUser } from '../redux/actions'
+import { ROLE } from '../constants'
 import { request } from '../utils'
 
 export const authFormSchema = yup.object().shape({
@@ -48,20 +47,20 @@ export const AuthorizationPage = () => {
 
 	const [serverError, setServerError] = useState(null)
 
-	// const dispatch = useDispatch()
+	const dispatch = useDispatch()
 
-	// const roleId = useSelector(selectUserRole)
+	const authUser = useSelector(({ user }) => user)
 
-	// useResetForm(reset)
+	useResetForm(reset)
 
 	const onSubmit = ({ login, password }) => {
-		request('/', 'POST', { login, password }).then(({ error, user }) => {
+		request('/login', 'POST', { login, password }).then(({ error, user }) => {
 			if (error) {
 				setServerError(`Ошибка запроса: ${error}`)
 				return
 			}
 
-			// dispatch(setUser(user))
+			dispatch(setUser(user))
 			sessionStorage.setItem('userData', JSON.stringify(user))
 		})
 	}
@@ -69,9 +68,9 @@ export const AuthorizationPage = () => {
 	const formError = errors?.login?.message || errors?.password?.message
 	const errorMessage = formError || serverError
 
-	// if (roleId !== ROLE.GUEST) {
-	// 	return <Navigate to="/main" />
-	// }
+	if (authUser.role !== ROLE.GUEST) {
+		return <Navigate to="/" />
+	}
 
 	return (
 		<div className="flex flex-col justify-center mx-auto items-center w-[400px] pt-28 text-xl">
