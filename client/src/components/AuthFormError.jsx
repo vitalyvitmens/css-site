@@ -1,3 +1,5 @@
-export const AuthFormError = () => {
-	return <div className="mt-[10px] p-[10px] text-lg bg-[#fcadad]"></div>
+export const AuthFormError = ({ children }) => {
+	return (
+		<div className="flex px-4 py-2 mt-8 w-80 text-lg rounded-md bg-[#fcadad]">{children}</div>
+	)
 }

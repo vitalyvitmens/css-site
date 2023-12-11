@@ -78,8 +78,6 @@ export const AuthorizationPage = () => {
 			<H2>Авторизация</H2>
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<Input
-					id="email"
-					name="email"
 					type="text"
 					placeholder="Логин..."
 					{...register('login', {
@@ -87,20 +85,23 @@ export const AuthorizationPage = () => {
 					})}
 				/>
 				<Input
-					id="password"
-					name="password"
 					type="password"
 					placeholder="Пароль..."
 					{...register('password', {
 						onChange: () => setServerError(null),
 					})}
 				/>
-				<Button type="submit" disabled={!!formError}>
+				<Button
+					type="submit"
+					disabled={!!formError}
+					fontSize="text-xl"
+					margin="mt-8"
+				>
 					Авторизоваться
 				</Button>
 				{errorMessage && <AuthFormError>{errorMessage}</AuthFormError>}
 				<Link
-					className="flex justify-center underline my-5 text-lg hover:opacity-80"
+					className="flex justify-center underline my-5 text-xl hover:opacity-80"
 					to="/register"
 				>
 					Регистрация

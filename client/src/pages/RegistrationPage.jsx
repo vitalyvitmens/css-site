@@ -119,8 +119,6 @@ export const RegistrationPage = () => {
 			<H2>Регистрация</H2>
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<Input
-					id="email"
-					name="email"
 					type="email"
 					placeholder="Электронная почта..."
 					{...register('email', {
@@ -128,8 +126,6 @@ export const RegistrationPage = () => {
 					})}
 				/>
 				<Input
-					id="avatar"
-					name="avatar"
 					type="text"
 					placeholder="Интернет ссылка (URL) на фото..."
 					{...register('avatar', {
@@ -137,8 +133,6 @@ export const RegistrationPage = () => {
 					})}
 				/>
 				<Input
-					id="login"
-					name="login"
 					type="text"
 					placeholder="Логин..."
 					{...register('login', {
@@ -146,8 +140,6 @@ export const RegistrationPage = () => {
 					})}
 				/>
 				<Input
-					id="password"
-					name="password"
 					type="password"
 					placeholder="Пароль..."
 					{...register('password', {
@@ -155,21 +147,24 @@ export const RegistrationPage = () => {
 					})}
 				/>
 				<Input
-					id="passcheck"
-					name="passcheck"
 					type="password"
 					placeholder="Проверка пароля..."
 					{...register('passcheck', {
 						onChange: () => setServerError(null),
 					})}
 				/>
-				<Button type="submit" disabled={!!formError} fontSize="text-xl">
+				<Button
+					type="submit"
+					disabled={!!formError}
+					fontSize="text-xl"
+					margin="mt-8"
+				>
 					Зарегистрироваться
 				</Button>
 				{errorMessage && <AuthFormError>{errorMessage}</AuthFormError>}
 				<Link
-					className="flex justify-center underline my-5 text-lg hover:opacity-80"
-					to="/"
+					className="flex justify-center underline my-5 text-xl hover:opacity-80"
+					to="/login"
 				>
 					Авторизация
 				</Link>

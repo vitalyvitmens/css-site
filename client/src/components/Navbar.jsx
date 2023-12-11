@@ -5,7 +5,7 @@ import { Icon } from './Icon'
 
 export const Navbar = () => {
 	const navigate = useNavigate()
-	const firstName = 'куличиха'
+	const firstName = 'Куличиха'
 
 	const activeStyles = {
 		color: '#C80815',
@@ -95,12 +95,12 @@ export const Navbar = () => {
 							/>
 							<h1 className=" text-blue-900 px-2 text-base">{firstName}</h1>
 						</div>
-						<Button onClick={() => alert(`${firstName} хочет выйти?`)}>
+						<Button onClick={() => navigate('/login')}>
 							Выйти
 						</Button>
 					</div>
 				) : (
-					<Button bgColor="bg-green-800">
+					<Button bgColor="bg-green-800" margin = 'm-4'>
 						<Link to="/login">Войти</Link>
 					</Button>
 				)}
