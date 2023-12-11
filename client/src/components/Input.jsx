@@ -1,17 +1,11 @@
 import { forwardRef } from 'react'
 
-export const Input = ({
-	width = 'w-[100%]',
-	height = 'h-[40px]',
-	margin = 'my-1',
-	ref = forwardRef(),
-	...props
-}) => {
+export const Input = ({ ref, ...props }) => {
 	return (
 		<input
-			className={`p-[10px] text-lg border border-solid border-[#000] rounded-[10px] bg-[antiquewhite] ${width} ${height} ${margin}`}
+			className={`flex flex-col mb-2 w-80 h-8 py-2 px-4 mx-auto text-lg border border-solid border-[#000] rounded-[10px] bg-[antiquewhite]`}
 			{...props}
-			ref={ref}
-		></input>
+			ref={forwardRef()}
+		/>
 	)
 }

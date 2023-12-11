@@ -4,7 +4,7 @@ import { Link, Navigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { AuthFormError, Button, Input } from '../components'
+import { AuthFormError, Button, H2, Input } from '../components'
 // import { useResetForm } from '../../hooks'
 import { request } from '../utils'
 // import { setUser } from '../../redux/actions'
@@ -115,13 +115,12 @@ export const RegistrationPage = () => {
 	// }
 
 	return (
-		<div className="flex flex-col items-center m-auto pt-28  text-xl">
-			<h2>Регистрация</h2>
-			<form
-				className="flex flex-col w-[400px]"
-				onSubmit={handleSubmit(onSubmit)}
-			>
+		<div className="flex flex-col justify-center mx-auto items-center w-[400px] pt-28 text-xl">
+			<H2>Регистрация</H2>
+			<form onSubmit={handleSubmit(onSubmit)}>
 				<Input
+					id="email"
+					name="email"
 					type="email"
 					placeholder="Электронная почта..."
 					{...register('email', {
@@ -129,6 +128,8 @@ export const RegistrationPage = () => {
 					})}
 				/>
 				<Input
+					id="avatar"
+					name="avatar"
 					type="text"
 					placeholder="Интернет ссылка (URL) на фото..."
 					{...register('avatar', {
@@ -136,6 +137,8 @@ export const RegistrationPage = () => {
 					})}
 				/>
 				<Input
+					id="login"
+					name="login"
 					type="text"
 					placeholder="Логин..."
 					{...register('login', {
@@ -143,6 +146,8 @@ export const RegistrationPage = () => {
 					})}
 				/>
 				<Input
+					id="password"
+					name="password"
 					type="password"
 					placeholder="Пароль..."
 					{...register('password', {
@@ -150,6 +155,8 @@ export const RegistrationPage = () => {
 					})}
 				/>
 				<Input
+					id="passcheck"
+					name="passcheck"
 					type="password"
 					placeholder="Проверка пароля..."
 					{...register('passcheck', {
@@ -161,7 +168,7 @@ export const RegistrationPage = () => {
 				</Button>
 				{errorMessage && <AuthFormError>{errorMessage}</AuthFormError>}
 				<Link
-					className="text-center underline my-5 mx-0 hover:opacity-80"
+					className="flex justify-center underline my-5 text-lg hover:opacity-80"
 					to="/"
 				>
 					Авторизация

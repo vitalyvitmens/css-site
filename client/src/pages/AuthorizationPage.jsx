@@ -4,7 +4,7 @@ import { Link, Navigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { AuthFormError, Button } from '../components'
+import { AuthFormError, Button, H2, Input } from '../components'
 import { useResetForm } from '../hooks'
 // import { setUser } from '../../redux/actions'
 // import { selectUserRole } from '../../redux/selectors'
@@ -52,7 +52,7 @@ export const AuthorizationPage = () => {
 
 	// const roleId = useSelector(selectUserRole)
 
-	useResetForm(reset)
+	// useResetForm(reset)
 
 	const onSubmit = ({ login, password }) => {
 		request('/', 'POST', { login, password }).then(({ error, user }) => {
@@ -74,20 +74,21 @@ export const AuthorizationPage = () => {
 	// }
 
 	return (
-		<div className="flex flex-col items-center">
-			<h2>Авторизация</h2>
-			<form
-				className="flex flex-col w-[260px]"
-				onSubmit={handleSubmit(onSubmit)}
-			>
-				<input
+		<div className="flex flex-col justify-center mx-auto items-center w-[400px] pt-28 text-xl">
+			<H2>Авторизация</H2>
+			<form onSubmit={handleSubmit(onSubmit)}>
+				<Input
+					id="email"
+					name="email"
 					type="text"
 					placeholder="Логин..."
 					{...register('login', {
 						onChange: () => setServerError(null),
 					})}
 				/>
-				<input
+				<Input
+					id="password"
+					name="password"
 					type="password"
 					placeholder="Пароль..."
 					{...register('password', {
@@ -99,7 +100,7 @@ export const AuthorizationPage = () => {
 				</Button>
 				{errorMessage && <AuthFormError>{errorMessage}</AuthFormError>}
 				<Link
-					className="text-center underline my-5 mx-0 text-lg"
+					className="flex justify-center underline my-5 text-lg hover:opacity-80"
 					to="/register"
 				>
 					Регистрация
