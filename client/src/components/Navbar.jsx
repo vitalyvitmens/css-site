@@ -5,6 +5,8 @@ import { Button } from './Button'
 import { Icon } from './Icon'
 import { Avatar } from './Avatar'
 import { logout } from '../redux/actions'
+import { ROLE } from '../constants'
+import { checkAccess } from '../utils'
 
 export const Navbar = () => {
 	const navigate = useNavigate()
@@ -64,6 +66,17 @@ export const Navbar = () => {
 						О нас
 					</NavLink>
 				</li>
+				{checkAccess([ROLE.ADMIN], authUser.role) && (
+					<li>
+						<NavLink
+							to="/users"
+							className="text-xl text-blue-900 hover:text-blue-600"
+							style={({ isActive }) => (isActive ? activeStyles : undefined)}
+						>
+							Users
+						</NavLink>
+					</li>
+				)}
 			</ul>
 			<Icon
 				id="fa-arrow-left"
