@@ -86,7 +86,7 @@ export const UsersPage = () => {
 					</div>
 					{users.map(({ id, email, avatar, login, role, createdAt }) => (
 						// <UserRow
-						<div className="flex m-1 items-center">
+						<div className="flex m-1 items-center" key={id}>
 							<div className="flex w-full justify-between items-center py-1 px-3 border border-black rounded-md">
 								<div>
 									<Avatar width="w-10" height="h-10">
