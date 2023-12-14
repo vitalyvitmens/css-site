@@ -72,7 +72,7 @@ export const UsersPage = () => {
 	return (
 		// <PrivateContent access={[ROLE.ADMIN]} serverError={errorMessage}>
 		<div access={[ROLE.ADMIN]} serverError={errorMessage}>
-			<div className="flex flex-col m-auto items-center pt-28">
+			<div className="flex flex-col items-center pt-28">
 				<H2>Пользователи</H2>
 				<div>
 					{/* <TableRow> */}
@@ -86,8 +86,8 @@ export const UsersPage = () => {
 					</div>
 					{users.map(({ id, email, avatar, login, role, createdAt }) => (
 						// <UserRow
-						<div className="flex flex-row m-2 justify-between items-center">
-							<div className="flex justify-between items-center py-1 px-3 border border-black rounded-md w-full">
+						<div className="flex m-1 items-center">
+							<div className="flex w-full justify-between items-center py-1 px-3 border border-black rounded-md">
 								<div>
 									<Avatar width="w-10" height="h-10">
 										{avatar}
