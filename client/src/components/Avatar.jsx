@@ -1,7 +1,7 @@
 export const Avatar = ({
 	children,
-	width = 'w-16',
-	height = 'h-16',
+	width = 'w-14',
+	height = 'h-14',
 	...props
 }) => {
 	return (
