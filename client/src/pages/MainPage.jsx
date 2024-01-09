@@ -1,5 +1,5 @@
 import { useLayoutEffect, useState } from 'react'
-import { Loader } from '../components'
+import { H2, Loader } from '../components'
 
 export const MainPage = () => {
 	const [products, setProducts] = useState()
@@ -15,7 +15,7 @@ export const MainPage = () => {
 	) : (
 		<>
 			<div className="flex justify-center pt-28 text-blue-900 font-semibold text-2xl">
-				Продукция ООО "ЦЕНТРОСТАЛЬСТРОЙ"
+				<H2>Продукция ООО "ЦЕНТРОСТАЛЬСТРОЙ"</H2>
 			</div>
 			{products.map(({ id, title, image, description, price }) => (
 				<ul key={id}>
