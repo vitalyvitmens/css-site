@@ -4,10 +4,26 @@ import { COLORS } from '../constants'
 
 export const CalcPage = () => {
 	const [cornice1Length, setCornice1Length] = useState(10000)
-	const [ramp1Length, setRamp1Length] = useState(5000)
+	const [ramp1Length, setRamp1Length] = useState(5195)
 	const [cornice2Length, setCornice2Length] = useState(10000)
 	const [ramp2Length, setRamp2Length] = useState(5000)
 	const [color, setColor] = useState('8017 глянец')
+
+	const calcMetalTiles = () => {
+		const numSheets = Math.ceil(cornice1Length / 1100)
+		const sheetLength = Math.round(ramp1Length / 10) * 10
+		const sheetArea = ((1190 * sheetLength * numSheets) / 1000000).toFixed(3)
+		const costMetalTiles = (sheetArea * 20.16).toFixed(2)
+		return (
+			<>
+				<div>
+					Длина листов / количество: {sheetLength} мм = {numSheets} шт
+				</div>
+				<div>Количество металлочерепицы: {sheetArea} м2</div>
+				<div>Стоимость металлочерепицы: {costMetalTiles} руб</div>
+			</>
+		)
+	}
 
 	return (
 		<div className="mx-auto pt-28">
@@ -35,8 +51,12 @@ export const CalcPage = () => {
 					<div
 						className={`flex flex-col justify-center text-center relative border-4 border-double border-gray-200 text-gray-200`}
 						style={{
-							width: cornice1Length / 20,
-							height: ramp1Length / 20,
+							width:
+								cornice1Length > 14000
+									? cornice1Length / 40
+									: cornice1Length / 20,
+							height:
+								cornice1Length > 14000 ? ramp1Length / 40 : ramp1Length / 20,
 							backgroundColor: COLORS[color],
 						}}
 					>
@@ -59,8 +79,12 @@ export const CalcPage = () => {
 					<div
 						className={`flex flex-col justify-center text-center relative border-4 border-double border-gray-200 text-gray-200 -mt-2`}
 						style={{
-							width: cornice2Length / 20,
-							height: ramp2Length / 20,
+							width:
+								cornice2Length > 14000
+									? cornice2Length / 40
+									: cornice2Length / 20,
+							height:
+								cornice2Length > 14000 ? ramp2Length / 40 : ramp2Length / 20,
 							backgroundColor: COLORS[color],
 						}}
 					>
@@ -92,13 +116,9 @@ export const CalcPage = () => {
 					</div>
 				</form>
 			</div>
+			<div>{calcMetalTiles()}</div>
 			<div className="mx-auto w-[200px] text-center">
-				<Button
-					bgColor="bg-green-800"
-					onClick={() =>
-						alert('Ещё в процессе разработки, наберитесь терпения!')
-					}
-				>
+				<Button bgColor="bg-green-800" onClick={calcMetalTiles}>
 					Расчитать
 				</Button>
 			</div>
