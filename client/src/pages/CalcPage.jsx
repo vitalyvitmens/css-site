@@ -1,29 +1,27 @@
 import { useState } from 'react'
-import { Button, H2, Icon, Input } from '../components'
+import { Button, H2, Icon, Input, Select } from '../components'
+import { COLORS } from '../constants'
 
 export const CalcPage = () => {
-	const [cornice1Length, setCornice1Length] = useState(400)
-	const [ramp1Length, setRamp1Length] = useState(200)
-	const [cornice2Length, setCornice2Length] = useState(400)
-	const [ramp2Length, setRamp2Length] = useState(200)
-	const [color, setColor] = useState('amber')
+	const [cornice1Length, setCornice1Length] = useState(10000)
+	const [ramp1Length, setRamp1Length] = useState(5000)
+	const [cornice2Length, setCornice2Length] = useState(10000)
+	const [ramp2Length, setRamp2Length] = useState(5000)
+	const [color, setColor] = useState('8017 глянец')
 
 	return (
 		<div className="mx-auto pt-28">
 			<H2>Расчет металлочерепицы "Супермонтеррей":</H2>
 			<div className="mx-auto">
 				<form className="flex flex-col gap-2">
-					<div className="flex flex-row gap-2 text-[#C80815]">
-						<label htmlFor="color">Выберите цвет кровли, RAL</label>
-						<Input
-							id="color"
-							name="color"
-							className="px-2 rounded-md w-[220px]"
-							placeholder="Выберите цвет кровли, RAL"
-							// type=""
-							onChange={(e) => setColor(String(e.target.value))}
-						/>
-					</div>
+					<Select
+						id="color"
+						title="Выберите цвет кровли, RAL"
+						className="px-1"
+						constantsObject={COLORS}
+						stateValue={color}
+						stateFn={setColor}
+					/>
 					<div className="flex flex-row gap-2">
 						<label htmlFor="cornice1">Длина карниза №1, мм</label>
 						<Input
@@ -35,8 +33,12 @@ export const CalcPage = () => {
 						/>
 					</div>
 					<div
-						className={`flex flex-col justify-center text-center relative border-4 border-double border-gray-200 bg-${color}-950 text-gray-200`}
-						style={{ width: cornice1Length, height: ramp1Length }}
+						className={`flex flex-col justify-center text-center relative border-4 border-double border-gray-200 text-gray-200`}
+						style={{
+							width: cornice1Length / 20,
+							height: ramp1Length / 20,
+							backgroundColor: COLORS[color],
+						}}
 					>
 						<div className="flex flex-col">
 							<Icon
@@ -55,8 +57,12 @@ export const CalcPage = () => {
 						</div>
 					</div>
 					<div
-						className={`flex flex-col justify-center text-center relative border-4 border-double border-gray-200 bg-${color}-950 text-gray-200 -mt-2`}
-						style={{ width: cornice2Length, height: ramp2Length }}
+						className={`flex flex-col justify-center text-center relative border-4 border-double border-gray-200 text-gray-200 -mt-2`}
+						style={{
+							width: cornice2Length / 20,
+							height: ramp2Length / 20,
+							backgroundColor: COLORS[color],
+						}}
 					>
 						<div className="flex flex-col">
 							Скат №2
