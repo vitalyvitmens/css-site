@@ -4,14 +4,11 @@ import { Button } from './Button'
 
 // Компонент для отображения данных в виде таблицы
 const DataTable = ({ data }) => {
-	const sumPrice = (arrObj) =>
-		arrObj.reduce((acc, item) => (acc += item.price), 0).toFixed(2)
+	const ColumnSum = ({ arrObj, myKey, decimal = 2 }) =>
+		arrObj.reduce((acc, item) => (acc += item[myKey]), 0).toFixed(decimal)
 
-	const sumNumberUnits = (arrObj) =>
-		arrObj.reduce((acc, item) => (acc += item.numberUnits), 0).toFixed()
-
-	const sumAmount = (arrObj) =>
-		arrObj.reduce((acc, item) => (acc += item.amount), 0).toFixed(2)
+	// const RowSum = ({ arrObj, myKey1, myKey2, decimal = 2 }) =>
+	// 	arrObj.map((item) => item[myKey1] * item[myKey2]).toFixed(decimal)
 
 	return (
 		<div className="overflow-x-auto">
@@ -88,7 +85,7 @@ const DataTable = ({ data }) => {
 								{item.sellingPrice}
 							</td>
 							<td className="px-0.5 text-end border border-black">
-								{item.price}
+								{item.amount * item.sellingPrice}
 							</td>
 						</tr>
 					))}
@@ -99,13 +96,17 @@ const DataTable = ({ data }) => {
 						<th>ИТОГО:</th>
 						<th></th>
 						<th></th>
-						<th className="px-0.5 text-end">{sumAmount(data, data.amount)}</th>
-						<th></th>
 						<th className="px-0.5 text-end">
-							{sumNumberUnits(data, data.sumNumberUnits)}
+							<ColumnSum arrObj={data} myKey="amount" />
 						</th>
 						<th></th>
-						<th className="px-0.5 text-end">{sumPrice(data, data.price)}</th>
+						<th className="px-0.5 text-end">
+							<ColumnSum arrObj={data} myKey="numberUnits" decimal={0} />
+						</th>
+						<th></th>
+						<th className="px-0.5 text-end">
+							<ColumnSum arrObj={data} myKey="price" />
+						</th>
 					</tr>
 				</tfoot>
 			</table>
@@ -132,7 +133,7 @@ export const Print = () => {
 			amount: 164.22,
 			length: '2000',
 			numberUnits: 40,
-			sellingPrice: '19.80',
+			sellingPrice: 19.8,
 			price: 3251.56,
 		},
 		{
@@ -142,7 +143,7 @@ export const Print = () => {
 			amount: 80,
 			length: '2000',
 			numberUnits: 40,
-			sellingPrice: '19.80',
+			sellingPrice: 19.8,
 			price: 221.76,
 		},
 		{
@@ -152,7 +153,7 @@ export const Print = () => {
 			amount: 1,
 			length: '',
 			numberUnits: 1,
-			sellingPrice: '30.00',
+			sellingPrice: 30.0,
 			price: 30.0,
 		},
 	]
