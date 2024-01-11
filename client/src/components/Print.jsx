@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import { useReactToPrint } from 'react-to-print' // Импортируем хук для печати компонента
+import { Button } from './Button'
 
 // Компонент для отображения данных в виде таблицы
 const DataTable = ({ data }) => {
@@ -166,12 +167,14 @@ export const Print = () => {
 					Нажмите на кнопку "Сохранить в PDF", чтобы скачать Счет-фактуру в
 					формате PDF:
 				</p>
-				<button
-					className="bg-blue-500 text-white my-2 p-2 rounded"
+				<Button
+					bgColor="bg-blue-500"
+					color="text-white"
+					margin="my-2 mx-0"
 					onClick={handlePrint}
 				>
 					Сохранить в PDF
-				</button>
+				</Button>
 			</div>
 		</div>
 	)
