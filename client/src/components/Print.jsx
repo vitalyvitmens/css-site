@@ -5,10 +5,38 @@ import { Button } from './Button'
 // Компонент для отображения данных в виде таблицы
 const DataTable = ({ data }) => {
 	const ColumnSum = ({ arrObj, myKey, decimal = 2 }) =>
-		arrObj.reduce((acc, item) => (acc += item[myKey]), 0).toFixed(decimal)
+		arrObj
+			.reduce((acc, item) => (acc += Number(item[myKey])), 0)
+			.toFixed(decimal)
 
 	// const RowSum = ({ arrObj, myKey1, myKey2, decimal = 2 }) =>
 	// 	arrObj.map((item) => item[myKey1] * item[myKey2]).toFixed(decimal)
+	const arrUnit = []
+	const arrPrice = []
+
+	const multiplyTwoNumRow = (num1, num2, decimal = 2) => {
+		const sum = (Number(num1) * Number(num2)).toFixed(decimal)
+		arrPrice.push(sum)
+		return sum
+	}
+
+	// unitsQuantity
+	// price
+
+	const unitsQuantityCalc = (
+		quantity,
+		length = 1000,
+		width = 1000,
+		decimal = 2
+	) => {
+		const sum = (
+			Number(quantity) *
+			(Number(length) / 1000) *
+			(Number(width) / 1000)
+		).toFixed(decimal)
+		arrUnit.push(sum)
+		return sum
+	}
 
 	return (
 		<div className="overflow-x-auto">
@@ -58,37 +86,44 @@ const DataTable = ({ data }) => {
 					</tr>
 				</thead>
 				<tbody>
-					{data.map((item, index) => (
-						<tr key={index} className="border border-black">
-							<th className="px-0.5 text-end border border-black">
-								{index + 1}
-							</th>
-							<td className="px-0.5 text-start border border-black">
-								{item.name}
-							</td>
-							<td className="px-0.5 text-start border border-black">
-								{item.color}
-							</td>
-							<td className="px-0.5 text-end border border-black">
-								{item.unit}
-							</td>
-							<td className="px-0.5 text-end border border-black">
-								{item.amount}
-							</td>
-							<td className="px-0.5 text-end border border-black">
-								{item.length}
-							</td>
-							<td className="px-0.5 text-end border border-black">
-								{item.numberUnits}
-							</td>
-							<td className="px-0.5 text-end border border-black">
-								{item.sellingPrice}
-							</td>
-							<td className="px-0.5 text-end border border-black">
-								{item.amount * item.sellingPrice}
-							</td>
-						</tr>
-					))}
+					{data.map(
+						(
+							{ name, color, unit, length, width, quantity, sellingPrice },
+							index
+						) => (
+							<tr key={index} className="border border-black">
+								<th className="px-0.5 text-end border border-black">
+									{index + 1}
+								</th>
+								<td className="px-0.5 text-start border border-black">
+									{name}
+									{color}
+								</td>
+								<td className="px-0.5 text-start border border-black">
+									{color}
+								</td>
+								<td className="px-0.5 text-end border border-black">{unit}</td>
+								<td className="px-0.5 text-end border border-black">
+									{unitsQuantityCalc(quantity, length, width, 3)}
+								</td>
+								<td className="px-0.5 text-end border border-black">
+									{length}
+								</td>
+								<td className="px-0.5 text-end border border-black">
+									{quantity}
+								</td>
+								<td className="px-0.5 text-end border border-black">
+									{sellingPrice}
+								</td>
+								<td className="px-0.5 text-end border border-black">
+									{multiplyTwoNumRow(
+										unitsQuantityCalc(quantity, length, width, 3),
+										sellingPrice
+									)}
+								</td>
+							</tr>
+						)
+					)}
 				</tbody>
 				<tfoot className="border-t-2 border-black">
 					<tr>
@@ -97,15 +132,19 @@ const DataTable = ({ data }) => {
 						<th></th>
 						<th></th>
 						<th className="px-0.5 text-end">
-							<ColumnSum arrObj={data} myKey="amount" />
+							{arrUnit.reduce((acc, num) => (acc += Number(num)), 0).toFixed(3)}
 						</th>
 						<th></th>
 						<th className="px-0.5 text-end">
-							<ColumnSum arrObj={data} myKey="numberUnits" decimal={0} />
+							{arrPrice
+								.reduce((acc, num) => (acc += Number(num)), 0)
+								.toFixed(0)}
 						</th>
 						<th></th>
 						<th className="px-0.5 text-end">
-							<ColumnSum arrObj={data} myKey="price" />
+							{arrPrice
+								.reduce((acc, num) => (acc += Number(num)), 0)
+								.toFixed(2)}
 						</th>
 					</tr>
 				</tfoot>
@@ -127,34 +166,28 @@ export const Print = () => {
 	// Массив с данными для таблицы
 	const data = [
 		{
-			name: 'Металлочерепица 0,50*1210*720 RAL 8019МАТ',
-			color: '8019МАТ',
+			name: 'Монтеррей 0,45*1190*Lмм RAL',
+			color: '8017',
 			unit: 'м2',
-			amount: 164.22,
-			length: '2000',
-			numberUnits: 40,
-			sellingPrice: 19.8,
-			price: 3251.56,
+			length: '5200',
+			width: '1190',
+			sellingPrice: '20.16',
+			quantity: '10',
 		},
 		{
-			name: 'Планка конька круглого',
+			name: 'Планка конька круглого RAL',
 			color: '8019МАТ',
 			unit: 'пог.м',
-			amount: 80,
-			length: '2000',
-			numberUnits: 40,
-			sellingPrice: 19.8,
-			price: 221.76,
+			length: '1250',
+			sellingPrice: '19.80',
+			quantity: '40',
 		},
 		{
 			name: 'Поддон деревянный',
 			color: '',
 			unit: 'шт',
-			amount: 1,
-			length: '',
-			numberUnits: 1,
-			sellingPrice: 30.0,
-			price: 30.0,
+			sellingPrice: '30.00',
+			quantity: '1',
 		},
 	]
 
