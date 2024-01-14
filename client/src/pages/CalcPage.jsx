@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, H2, Icon, Input, Print, Select } from '../components'
+import { Button, H2, Icon, Input, Print, RoofShow, Select } from '../components'
 import { COLORS } from '../constants'
 
 export const CalcPage = () => {
@@ -27,6 +27,7 @@ export const CalcPage = () => {
 
 	return (
 		<>
+			<RoofShow />
 			<div className="mx-auto pt-28">
 				<H2>Расчет металлочерепицы "Супермонтеррей":</H2>
 				<div className="mx-auto">
