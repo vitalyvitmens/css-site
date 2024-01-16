@@ -27,7 +27,7 @@ export const CalcPage = () => {
 
 	return (
 		<>
-			<RoofShow />
+			{/* <RoofShow /> */}
 			<div className="mx-auto pt-28">
 				<H2>Расчет металлочерепицы "Супермонтеррей":</H2>
 				<div className="mx-auto">

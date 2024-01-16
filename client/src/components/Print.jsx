@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { useReactToPrint } from 'react-to-print' // Импортируем хук для печати компонента
 import { Button } from './Button'
 
@@ -38,9 +38,26 @@ const DataTable = ({ data }) => {
 		return sum
 	}
 
+	const unitsQuantityTotal = (arrObj, decimal = 3) =>
+		arrObj.reduce((acc, item) => {
+      console.log(item.quantity)
+      console.log(item.length)
+      console.log(item.quantity)
+			return ((acc +=
+				Number(item.quantity) *
+				(Number(item.length) / 1000) *
+				(Number(item.width) / 1000)),
+			0).toFixed(decimal)
+		})
+
+	const total = (arrObj, myKey, decimal = 0) =>
+		arrObj
+			.reduce((acc, item) => (acc += Number(item[myKey])), 0)
+			.toFixed(decimal)
+
 	return (
 		<div className="overflow-x-auto">
-			<table className="table w-full  bg-white">
+			<table className="table w-full bg-white">
 				<thead>
 					<tr>
 						<th className="border-2 border-black bg-[rgb(195,247,221)]">
@@ -131,15 +148,9 @@ const DataTable = ({ data }) => {
 						<th>ИТОГО:</th>
 						<th></th>
 						<th></th>
-						<th className="px-0.5 text-end">
-							{arrUnit.reduce((acc, num) => (acc += Number(num)), 0).toFixed(3)}
-						</th>
+						<th className="px-0.5 text-end">{unitsQuantityTotal(data)}</th>
 						<th></th>
-						<th className="px-0.5 text-end">
-							{arrPrice
-								.reduce((acc, num) => (acc += Number(num)), 0)
-								.toFixed(0)}
-						</th>
+						<th className="px-0.5 text-end">{total(data, 'quantity')}</th>
 						<th></th>
 						<th className="px-0.5 text-end">
 							{arrPrice
@@ -171,23 +182,23 @@ export const Print = () => {
 			unit: 'м2',
 			length: '5200',
 			width: '1190',
-			sellingPrice: '20.16',
 			quantity: '10',
+			sellingPrice: '20.16',
 		},
 		{
 			name: 'Планка конька круглого RAL',
 			color: '8019МАТ',
 			unit: 'пог.м',
 			length: '1250',
-			sellingPrice: '19.80',
 			quantity: '40',
+			sellingPrice: '19.80',
 		},
 		{
 			name: 'Поддон деревянный',
 			color: '',
 			unit: 'шт',
-			sellingPrice: '30.00',
 			quantity: '1',
+			sellingPrice: '30.00',
 		},
 	]
 
